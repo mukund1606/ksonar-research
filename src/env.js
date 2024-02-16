@@ -14,6 +14,13 @@ export const env = createEnv({
         (str) => !str.includes("YOUR_MYSQL_URL_HERE"),
         "You forgot to change the default URL",
       ),
+    DIRECT_DATABASE_URL: z
+      .string()
+      .url()
+      .refine(
+        (str) => !str.includes("YOUR_MYSQL_URL_HERE"),
+        "You forgot to change the default URL",
+      ),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -52,6 +59,7 @@ export const env = createEnv({
     SERVER_ENCRYPTION_SECRET: process.env.SERVER_ENCRYPTION_SECRET,
     NEXT_PUBLIC_CLIENT_ENCRYPTION_SECRET:
       process.env.NEXT_PUBLIC_CLIENT_ENCRYPTION_SECRET,
+    DIRECT_DATABASE_URL: process.env.DIRECT_DATABASE_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

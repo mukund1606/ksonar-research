@@ -1,8 +1,11 @@
+import { z } from "zod";
+
 import {
   createTRPCRouter,
-  protectedProcedure,
+  // protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
+import { TRPCError } from "@trpc/server";
 
 export const reportRoute = createTRPCRouter({
   getAllReports: publicProcedure.query(async ({ ctx }) => {
@@ -11,4 +14,12 @@ export const reportRoute = createTRPCRouter({
     });
     return reports;
   }),
+  getReport: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const report = ctx.db.report.findUnique({
+        where: { id: input.id },
+      });
+      return report;
+    }),
 });

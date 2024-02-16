@@ -3,8 +3,6 @@ import NextLink from "next/link";
 
 import { ThemeToggle } from "@/components/ThemeSwitcher";
 import {
-  Accordion,
-  AccordionItem,
   Button,
   Card,
   CardFooter,
@@ -88,14 +86,25 @@ export default function Nav() {
               </DropdownTrigger>
             </NavbarItem>
             <DropdownMenu>
-              <DropdownItem>New file</DropdownItem>
-              <DropdownItem>Copy link</DropdownItem>
-              <DropdownItem>Edit file</DropdownItem>
-              <DropdownItem>Delete file</DropdownItem>
+              <DropdownItem as={NextLink} href="/reports?industry=all">
+                All
+              </DropdownItem>
+              <DropdownItem as={NextLink} href="/reports?industry=food">
+                Food
+              </DropdownItem>
+              <DropdownItem as={NextLink} href="/reports?industry=iso">
+                ISO
+              </DropdownItem>
+              <DropdownItem as={NextLink} href="/reports?industry=led">
+                LED
+              </DropdownItem>
+              <DropdownItem as={NextLink} href="/reports?industry=beverage">
+                Beverage
+              </DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-2">
           <Popover placement="bottom" backdrop="transparent">
             <PopoverTrigger>
               <Button color="primary">Contact Us</Button>
@@ -203,10 +212,21 @@ export default function Nav() {
               </Link>
             </DropdownTrigger>
             <DropdownMenu>
-              <DropdownItem>New file</DropdownItem>
-              <DropdownItem>Copy link</DropdownItem>
-              <DropdownItem>Edit file</DropdownItem>
-              <DropdownItem>Delete file</DropdownItem>
+              <DropdownItem as={NextLink} href="/reports?industry=all">
+                All
+              </DropdownItem>
+              <DropdownItem as={NextLink} href="/reports?industry=food">
+                Food
+              </DropdownItem>
+              <DropdownItem as={NextLink} href="/reports?industry=iso">
+                ISO
+              </DropdownItem>
+              <DropdownItem as={NextLink} href="/reports?industry=led">
+                LED
+              </DropdownItem>
+              <DropdownItem as={NextLink} href="/reports?industry=beverage">
+                Beverage
+              </DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </NavbarMenuItem>

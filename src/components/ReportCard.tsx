@@ -7,7 +7,6 @@ import {
 } from "@nextui-org/react";
 import { type Report } from "@prisma/client";
 import Link from "next/link";
-import { Document, Page } from "react-pdf";
 
 export default function ReportCard({ report }: { report: Report }) {
   return (
