@@ -22,7 +22,6 @@ declare module "next-auth/jwt" {
     id: string;
     username: string;
     name: string;
-    email: string;
   }
 }
 declare module "next-auth" {
@@ -33,7 +32,6 @@ declare module "next-auth" {
   interface User {
     username: string;
     name: string;
-    email: string;
   }
 }
 
@@ -82,7 +80,6 @@ export const authOptions: NextAuthOptions = {
         const data: User = {
           id: userData.id,
           name: userData.name,
-          email: userData.email,
           username: userData.username,
         };
         return data;
