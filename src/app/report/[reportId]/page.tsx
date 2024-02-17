@@ -9,6 +9,8 @@ import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Document, Page } from "react-pdf";
 
+import { isMobile } from "mobile-device-detect";
+
 export default function ReportPage({
   params,
 }: {
@@ -40,7 +42,7 @@ export default function ReportPage({
       {report ? (
         <>
           <div className="mt-4 flex flex-col items-center  gap-6 px-4 md:px-8 xl:px-12">
-            <div className="max-w-[50%]">
+            <div className="max-w-[85%] md:max-w-[50%]">
               <h1 className="mb-4 mt-8 text-4xl font-bold uppercase">
                 {report.title}
               </h1>
@@ -58,13 +60,17 @@ export default function ReportPage({
                       renderAnnotationLayer={false}
                       className="w-fit border"
                       width={
-                        pageSize
-                          ? pageSize > 1024
-                            ? pageSize * 0.5
-                            : pageSize > 768
-                              ? pageSize * 0.6
-                              : pageSize * 0.8
-                          : 0
+                        isMobile
+                          ? pageSize
+                            ? pageSize * 0.8
+                            : 300
+                          : pageSize
+                            ? pageSize > 1024
+                              ? pageSize * 0.5
+                              : pageSize > 768
+                                ? pageSize * 0.6
+                                : pageSize * 0.8
+                            : 0
                       }
                     />
                   ))}

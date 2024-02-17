@@ -7,9 +7,6 @@ const f = createUploadthing();
 export const ourFileRouter = {
   docsUploader: f({
     pdf: { maxFileSize: "4MB" },
-    "application/pdf": {
-      maxFileSize: "4MB",
-    },
   })
     .middleware(async () => {
       const session = await getServerAuthSession();

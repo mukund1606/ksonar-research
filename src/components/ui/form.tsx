@@ -1,3 +1,4 @@
+"use client"
 import * as React from "react";
 import {
   Controller,
@@ -35,7 +36,6 @@ const FormField = <
     </FormFieldContext.Provider>
   );
 };
-
 const useFormField = () => {
   const fieldContext = React.useContext(FormFieldContext);
   const itemContext = React.useContext(FormItemContext);
@@ -96,7 +96,7 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={cn("text-destructive text-sm font-medium", className)}
+      className={cn("text-[0.8rem] font-medium text-destructive", className)}
       {...props}
     >
       {body}

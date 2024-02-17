@@ -16,8 +16,8 @@ export default function ReportPage({
 }: {
   searchParams: SearchParams;
 }) {
-  const [latestReportsPage, setLatestReportsPage] = useState(1);
   const [topReportsPage, setTopReportsPage] = useState(1);
+  const [allReportsPage, setAllReportsPage] = useState(1);
 
   const { data: reports } = api.report.getAllReports.useQuery();
   const industryWiseReports =
@@ -56,32 +56,6 @@ export default function ReportPage({
         ) : (
           <>
             <div>
-              <h1 className="mb-4 mt-8 text-4xl font-bold">Latest Reports</h1>
-              {reports ? (
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                  {reports
-                    .slice((latestReportsPage - 1) * 4, latestReportsPage * 4)
-                    .map((report) => (
-                      <ReportCard report={report} key={report.id} />
-                    ))}
-                </div>
-              ) : (
-                <>
-                  <Spinner size="lg" />
-                </>
-              )}
-              {reports && (
-                <div className="flex w-full justify-center p-2 pt-6">
-                  <Pagination
-                    total={Math.ceil(reports.length / 4)}
-                    onChange={(page) => {
-                      setLatestReportsPage(page);
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-            <div>
               <h1 className="mb-4 mt-8 text-center text-4xl font-bold">
                 Top Reports
               </h1>
@@ -107,6 +81,32 @@ export default function ReportPage({
                     )}
                     onChange={(page) => {
                       setTopReportsPage(page);
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+            <div>
+              <h1 className="mb-4 mt-8 text-4xl font-bold">All Reports</h1>
+              {reports ? (
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  {reports
+                    .slice((allReportsPage - 1) * 4, allReportsPage * 4)
+                    .map((report) => (
+                      <ReportCard report={report} key={report.id} />
+                    ))}
+                </div>
+              ) : (
+                <>
+                  <Spinner size="lg" />
+                </>
+              )}
+              {reports && (
+                <div className="flex w-full justify-center p-2 pt-6">
+                  <Pagination
+                    total={Math.ceil(reports.length / 4)}
+                    onChange={(page) => {
+                      setAllReportsPage(page);
                     }}
                   />
                 </div>

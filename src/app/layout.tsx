@@ -12,6 +12,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import Nav from "@/components/Navbar";
 import { Toaster } from "@/components/ui/sonner";
+import { getServerAuthSession } from "@/server/auth";
 
 export const metadata = {
   title: "KSonar Research",
@@ -23,13 +24,16 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerAuthSession();
   return (
     <html lang="en">
       <body className="min-h-screen w-full">
         <Providers>
           <TRPCReactProvider>
             <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-            <Nav />
+            <Nav 
+              session={session}
+            />
             {children}
             <ReactQueryDevtools />
             <Toaster richColors closeButton />

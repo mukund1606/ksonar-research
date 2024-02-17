@@ -24,10 +24,12 @@ import {
   PopoverTrigger,
 } from "@nextui-org/react";
 import { Linkedin, Mail, MessageSquare, Phone } from "lucide-react";
+import { type Session } from "next-auth";
+import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-export default function Nav() {
+export default function Nav({ session }: { session: Session | null }) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -36,14 +38,14 @@ export default function Nav() {
       <NavbarContent className="flex gap-2">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="md:hidden"
+          className="lg:hidden"
         />
         <NavbarBrand>
           <p className="font-bold text-inherit">KSonar Research</p>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="flex gap-12" justify="end">
-        <div className="hidden gap-8 md:flex">
+        <div className="hidden gap-8 lg:flex">
           <NavbarItem isActive={pathname === "/"}>
             <Link
               as={NextLink}
@@ -103,6 +105,32 @@ export default function Nav() {
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
+          {session && (
+            <NavbarItem isActive={pathname === "/admin"}>
+              <Dropdown>
+                <DropdownTrigger>
+                  <Link
+                    color={pathname === "/admin" ? "primary" : "foreground"}
+                    className="cursor-pointer transition-all duration-400 hover:text-primary"
+                  >
+                    Manage
+                  </Link>
+                </DropdownTrigger>
+                <DropdownMenu>
+                  <DropdownItem as={NextLink} href="/admin">
+                    Dashboard
+                  </DropdownItem>
+                  <DropdownItem
+                    onClick={async () => {
+                      await signOut({ callbackUrl: "/" });
+                    }}
+                  >
+                    Logout
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </NavbarItem>
+          )}
         </div>
         <div className="flex gap-2">
           <Popover placement="bottom" backdrop="transparent">
@@ -175,7 +203,7 @@ export default function Nav() {
           <Link
             color={pathname === "/" ? "primary" : "foreground"}
             className="w-full"
-            href="#"
+            href="/"
             size="lg"
           >
             Home
@@ -230,6 +258,32 @@ export default function Nav() {
             </DropdownMenu>
           </Dropdown>
         </NavbarMenuItem>
+        {session && (
+          <NavbarItem isActive={pathname === "/admin"}>
+            <Dropdown>
+              <DropdownTrigger>
+                <Link
+                  color={pathname === "/admin" ? "primary" : "foreground"}
+                  className="cursor-pointer transition-all duration-400 hover:text-primary"
+                >
+                  Manage
+                </Link>
+              </DropdownTrigger>
+              <DropdownMenu>
+                <DropdownItem as={NextLink} href="/admin">
+                  Dashboard
+                </DropdownItem>
+                <DropdownItem
+                  onClick={async () => {
+                    await signOut({ callbackUrl: "/" });
+                  }}
+                >
+                  Logout
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </NavbarItem>
+        )}
       </NavbarMenu>
     </Navbar>
   );

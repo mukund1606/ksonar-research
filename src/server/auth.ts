@@ -7,6 +7,7 @@ import {
 import CredentialsProvider from "next-auth/providers/credentials";
 
 import { env } from "@/env";
+import { clientDecryption, comparePassword, serverDecrypt } from "@/lib/utils";
 import { db } from "@/server/db";
 import { LoginSchema } from "@/types";
 
@@ -69,15 +70,15 @@ export const authOptions: NextAuthOptions = {
             username: dataFromAPI.username,
           },
         });
-        // const decryptedUserPassword = serverDecrypt(userData.password);
-        // const decryptedCredentialsPassword = clientDecryption(
-        //   dataFromAPI.password,
-        // );
-        // const isPasswordMatch = comparePassword(
-        //   decryptedCredentialsPassword,
-        //   decryptedUserPassword,
-        // );
-        // if (!isPasswordMatch) throw new Error("Invalid Password");
+        const decryptedUserPassword = serverDecrypt(userData.password);
+        const decryptedCredentialsPassword = clientDecryption(
+          dataFromAPI.password,
+        );
+        const isPasswordMatch = comparePassword(
+          decryptedCredentialsPassword,
+          decryptedUserPassword,
+        );
+        if (!isPasswordMatch) throw new Error("Invalid Password");
         const data: User = {
           id: userData.id,
           name: userData.name,
