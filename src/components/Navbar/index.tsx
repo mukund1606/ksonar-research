@@ -2,6 +2,7 @@
 import NextLink from "next/link";
 
 import { ThemeToggle } from "@/components/ThemeSwitcher";
+import { IndustrySchema } from "@/types/forms";
 import {
   Button,
   Card,
@@ -23,7 +24,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@nextui-org/react";
-import { Linkedin, Mail, MessageSquare, Phone } from "lucide-react";
+import { Building2, Mail, MessageSquare, Phone } from "lucide-react";
 import { type Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
@@ -87,22 +88,27 @@ export default function Nav({ session }: { session: Session | null }) {
                 </Link>
               </DropdownTrigger>
             </NavbarItem>
-            <DropdownMenu>
-              <DropdownItem as={NextLink} href="/reports?industry=all">
-                All
-              </DropdownItem>
-              <DropdownItem as={NextLink} href="/reports?industry=food">
-                Food
-              </DropdownItem>
-              <DropdownItem as={NextLink} href="/reports?industry=iso">
-                ISO
-              </DropdownItem>
-              <DropdownItem as={NextLink} href="/reports?industry=led">
-                LED
-              </DropdownItem>
-              <DropdownItem as={NextLink} href="/reports?industry=beverage">
-                Beverage
-              </DropdownItem>
+            <DropdownMenu
+              items={[
+                {
+                  key: "all",
+                  label: "All",
+                },
+                ...IndustrySchema._def.values.map((i) => ({
+                  key: i.toLowerCase(),
+                  label: i,
+                })),
+              ]}
+            >
+              {(item) => (
+                <DropdownItem
+                  key={item.key}
+                  as={NextLink}
+                  href={`/reports?industry=${item.key}`}
+                >
+                  {item.label}
+                </DropdownItem>
+              )}
             </DropdownMenu>
           </Dropdown>
           {session && (
@@ -141,44 +147,35 @@ export default function Nav({ session }: { session: Session | null }) {
               <Card
                 isFooterBlurred
                 radius="lg"
-                className="items-center gap-1 border-none bg-opacity-60 p-[6px]"
+                className="p-[6px items-center gap-1 border-none bg-opacity-60"
               >
                 <Image
-                  alt="Woman listing to music"
-                  className="aspect-[4/5] object-cover"
-                  width={200}
-                  height={400}
+                  alt="Profile Pic"
+                  className="aspect-[4/5] max-w-[280px] object-cover"
+                  width={300}
+                  height={375}
                   src="https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg"
                 />
                 <CardFooter className="rounded-md border-1 border-white/20 py-1 shadow-small before:rounded-xl before:bg-white/10">
-                  <div className="flex flex-col gap-2">
-                    <div className="max-w-44 pb-2 text-medium">
+                  <div className="flex max-w-64 flex-col gap-2">
+                    <div className="pb-2 text-medium">
                       <p>Hi, My name is XYZ</p>
                       <p>I am a researcher at KSonar Research</p>
                     </div>
                     <div className="flex items-center gap-1">
-                      <Linkedin size={30} />
-                      <Link
-                        href="#"
-                        className="text-black underline dark:text-white"
-                      >
-                        LinkedIn Profile
-                      </Link>
-                    </div>
-                    <div className="flex items-center gap-1">
                       <Mail size={30} />
                       <Link
-                        href="mailto:mail@mail.com"
+                        href="mailto:ksonarresearch@gmail.com"
                         className="text-black underline dark:text-white"
                       >
-                        main@mail.com
+                        ksonarresearch@gmail.com
                       </Link>
                     </div>
                     <div className="flex items-center gap-1">
                       <MessageSquare size={30} />
                       <Link
                         className="text-black underline dark:text-white"
-                        href="https://wa.me/999999999999"
+                        href="https://wa.me/91XXXXXXXXXX"
                         target="_blank"
                       >
                         Whatsapp
@@ -187,7 +184,18 @@ export default function Nav({ session }: { session: Session | null }) {
                     <div className="flex items-center gap-1">
                       <Phone size={30} />
                       <Link className="text-black dark:text-white">
-                        +91 9999999999
+                        +91 XXXXXXXXXX
+                      </Link>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Building2 size={30} />
+                      <Link
+                        href="#"
+                        className="text-black underline dark:text-white"
+                      >
+                        19671 110 Avenue, Surrey,
+                        <br />
+                        British Columbia, V3R2A9
                       </Link>
                     </div>
                   </div>
@@ -239,22 +247,27 @@ export default function Nav({ session }: { session: Session | null }) {
                 Industry
               </Link>
             </DropdownTrigger>
-            <DropdownMenu>
-              <DropdownItem as={NextLink} href="/reports?industry=all">
-                All
-              </DropdownItem>
-              <DropdownItem as={NextLink} href="/reports?industry=food">
-                Food
-              </DropdownItem>
-              <DropdownItem as={NextLink} href="/reports?industry=iso">
-                ISO
-              </DropdownItem>
-              <DropdownItem as={NextLink} href="/reports?industry=led">
-                LED
-              </DropdownItem>
-              <DropdownItem as={NextLink} href="/reports?industry=beverage">
-                Beverage
-              </DropdownItem>
+            <DropdownMenu
+              items={[
+                {
+                  key: "all",
+                  label: "All",
+                },
+                ...IndustrySchema._def.values.map((i) => ({
+                  key: i.toLowerCase(),
+                  label: i,
+                })),
+              ]}
+            >
+              {(item) => (
+                <DropdownItem
+                  key={item.key}
+                  as={NextLink}
+                  href={`/reports?industry=${item.key}`}
+                >
+                  {item.label}
+                </DropdownItem>
+              )}
             </DropdownMenu>
           </Dropdown>
         </NavbarMenuItem>

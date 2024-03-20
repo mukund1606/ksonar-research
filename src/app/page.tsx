@@ -6,7 +6,7 @@ import { api } from "@/trpc/server";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const reports = await api.report.getAllReports.query();
+  const reports = await api.report.getAllReports();
   return (
     <>
       <div className="mt-4 flex flex-col items-center gap-24 px-4 md:px-8 xl:px-12">

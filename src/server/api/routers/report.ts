@@ -117,4 +117,21 @@ export const reportRoute = createTRPCRouter({
         message: "Report deleted successfully",
       };
     }),
+  getRandomReport: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      // Any report except the one with the given id
+      const reports = await ctx.db.report.findMany({
+        where: {
+          id: { not: input.id },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+      const threeRandomReports = reports
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3);
+      return threeRandomReports;
+    }),
 });

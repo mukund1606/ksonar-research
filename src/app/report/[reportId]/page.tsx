@@ -3,12 +3,21 @@
 import { api } from "@/trpc/react";
 
 import Footer from "@/components/Footer";
-import { Spinner } from "@nextui-org/react";
+import {
+  Avatar,
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Spinner,
+} from "@nextui-org/react";
 import { redirect } from "next/navigation";
 
 import { useEffect, useState } from "react";
 import { Document, Page } from "react-pdf";
 
+import ReportCard from "@/components/ReportCard";
+import { Linkedin } from "lucide-react";
 import { isMobile } from "mobile-device-detect";
 
 export default function ReportPage({
@@ -27,6 +36,10 @@ export default function ReportPage({
   const { data: report, isLoading } = api.report.getReport.useQuery({
     id: params.reportId,
   });
+  const { data: randomReportData, isLoading: randomReportLoading } =
+    api.report.getRandomReport.useQuery({
+      id: params.reportId,
+    });
   if (!isLoading && !report) redirect("/not-found");
 
   useEffect(() => {
@@ -41,13 +54,15 @@ export default function ReportPage({
     <>
       {report ? (
         <>
-          <div className="mt-4 flex flex-col items-center  gap-6 px-4 md:px-8 xl:px-12">
-            <div className="max-w-[85%] md:max-w-[50%]">
-              <h1 className="mb-4 mt-8 text-4xl font-bold uppercase">
-                {report.title}
-              </h1>
-              <p>{report.description}</p>
-              <div className="flex flex-col items-center pt-8">
+          <div className="mt-4 flex w-full items-center justify-center gap-6 px-3 md:px-8 xl:px-12">
+            <div className="flex flex-col items-center gap-6 pt-12 md:flex-row md:items-start">
+              <div className="flex flex-col gap-4">
+                <div>
+                  <h1 className="mb-4 text-4xl font-bold uppercase">
+                    {report.title}
+                  </h1>
+                  <p>{report.description}</p>
+                </div>
                 <Document
                   file={report.fileUrl}
                   onLoadSuccess={onDocumentLoadSuccess}
@@ -75,6 +90,53 @@ export default function ReportPage({
                     />
                   ))}
                 </Document>
+              </div>
+              <div className="flex flex-col gap-8">
+                {randomReportData && !randomReportLoading && (
+                  <div className="pt-4">
+                    <h1 className="text-center text-2xl font-bold">
+                      You may also like
+                    </h1>
+                    <div className="flex flex-col gap-4 pt-2">
+                      {randomReportData.map((report) => (
+                        <ReportCard report={report} key={report.id} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+                <div className="flex flex-col gap-4">
+                  <h1 className="text-center text-2xl font-bold">
+                    {"Let's Connect"}
+                  </h1>
+                  <Card className="max-w-[300px]">
+                    <CardHeader>
+                      <div className="flex gap-5">
+                        <Avatar
+                          isBordered
+                          radius="full"
+                          size="md"
+                          src="https://cdn.pixabay.com/photo/2015/03/04/22/35/avatar-659651_640.png"
+                        />
+                        <div className="flex flex-col items-start justify-center gap-1">
+                          <h4 className="text-small font-semibold leading-none text-default-600">
+                            Lorem Ipsum
+                          </h4>
+                          <h5 className="text-small tracking-tight text-default-400">
+                            @loremipsum
+                          </h5>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardBody className="gap-2 px-3 text-small text-default-400">
+                      <div className="flex place-content-center">
+                        <Linkedin />
+                      </div>
+                      <Button color="primary" className="w-full" size="sm">
+                        Connect
+                      </Button>
+                    </CardBody>
+                  </Card>
+                </div>
               </div>
             </div>
           </div>

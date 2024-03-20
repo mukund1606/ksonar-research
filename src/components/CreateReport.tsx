@@ -20,7 +20,7 @@ import {
 
 import { UploadButton } from "@/lib/uploadthing";
 import { api } from "@/trpc/react";
-import { CreateReportFormSchema } from "@/types/forms";
+import { CreateReportFormSchema, IndustrySchema } from "@/types/forms";
 import { TRPCClientError } from "@trpc/client";
 import { useEffect, useState } from "react";
 
@@ -36,7 +36,6 @@ export default function CreateReportForm({
     defaultValues: {
       title: "",
       description: "",
-      industry: "Food",
       fileUrl: "",
       fileId: "",
       isTopReport: false,
@@ -178,18 +177,11 @@ export default function CreateReportForm({
                     isInvalid={form.formState.errors.industry !== undefined}
                     errorMessage={form.formState.errors.industry?.message}
                   >
-                    <SelectItem value="Food" key="Food">
-                      Food
-                    </SelectItem>
-                    <SelectItem key="ISO" value="ISO">
-                      ISO
-                    </SelectItem>
-                    <SelectItem key="LED" value="LED">
-                      LED
-                    </SelectItem>
-                    <SelectItem key="Beverage" value="Beverage">
-                      Beverage
-                    </SelectItem>
+                    {IndustrySchema._def.values.map((industry) => (
+                      <SelectItem key={industry} value={industry}>
+                        {industry}
+                      </SelectItem>
+                    ))}
                   </Select>
                   <FormMessage />
                 </FormItem>

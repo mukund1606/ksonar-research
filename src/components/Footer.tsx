@@ -1,4 +1,4 @@
-import { Linkedin, Mail, MessageSquare, Phone } from "lucide-react";
+import { Building2, Mail, MessageSquare, Phone } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -8,12 +8,11 @@ export default function Footer() {
       <div className="grid w-full grid-cols-2 gap-2 px-8 py-10 sm:px-8 lg:grid-cols-4 xl:px-52">
         <div className="flex justify-center">
           <div className="flex w-44 flex-col gap-1">
-            <Linkedin size={30} />
-            <h1 className="text-lg font-bold">LinkedIn</h1>
-            <p className="text-sm">Connect with us at</p>
-            <Link href="#" target="_blank" className="underline">
-              <p>My Profile</p>
-            </Link>
+            <Building2 size={30} />
+            <h1 className="text-lg font-bold">Address</h1>
+            <p className="text-sm">
+              19671 110 Avenue, Surrey, British Columbia, V3R2A9
+            </p>
           </div>
         </div>
         <div className="flex justify-center">
@@ -21,8 +20,8 @@ export default function Footer() {
             <Mail size={30} />
             <h1 className="text-lg font-bold">Email</h1>
             <p className="text-sm">For any enquiries</p>
-            <Link href="mailto:mail@mail.com" className="underline">
-              main@mail.com
+            <Link href="mailto:ksonarresearch@gmail.com" className="underline">
+              ksonarresearch@gmail.com
             </Link>
           </div>
         </div>
@@ -32,7 +31,7 @@ export default function Footer() {
             <h1 className="text-lg font-bold">Live Chat</h1>
             <p className="text-sm">chat with our support team</p>
             <Link
-              href="https://wa.me/999999999999"
+              href="https://wa.me/91XXXXXXXXXX"
               target="_blank"
               className="underline"
             >
@@ -45,7 +44,7 @@ export default function Footer() {
             <Phone size={30} />
             <h1 className="text-lg font-bold">Phone</h1>
             <p className="text-sm">Call us for any questions</p>
-            <p>+99 9999999999</p>
+            <p>+91 XXXXXXXXXX</p>
           </div>
         </div>
       </div>
