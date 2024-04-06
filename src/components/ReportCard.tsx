@@ -71,7 +71,11 @@ export default function ReportCard({
       </CardHeader>
       <CardBody className="overflow-visible py-2">
         <div>
-          <p>{report.description}</p>
+          <p>
+            {report.description.length > 50
+              ? report.description.slice(0, 50) + "..."
+              : report.description}
+          </p>
         </div>
         <CardFooter className="mt-auto w-full gap-2 px-1 pb-1">
           <Button

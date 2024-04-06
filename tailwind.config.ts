@@ -25,8 +25,8 @@ const config: Config = withUt({
     extend: {
       fontFamily: {
         fredoka: ["Fredoka", "sans-serif"],
-        abeezee: ["ABeeZee", "sans-serif"],
-        sans: ["ABeeZee", "sans-serif"],
+        abeezee: ["Poppins", "sans-serif"],
+        sans: ["Poppins", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--nextui-default))",

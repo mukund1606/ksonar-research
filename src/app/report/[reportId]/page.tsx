@@ -3,22 +3,16 @@
 import { api } from "@/trpc/react";
 
 import Footer from "@/components/Footer";
-import {
-  Avatar,
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Spinner,
-} from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Spinner } from "@nextui-org/react";
 import { redirect } from "next/navigation";
 
 import { useEffect, useState } from "react";
 import { Document, Page } from "react-pdf";
 
 import ReportCard from "@/components/ReportCard";
-import { Linkedin } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 import { isMobile } from "mobile-device-detect";
+import Link from "next/link";
 
 export default function ReportPage({
   params,
@@ -61,35 +55,37 @@ export default function ReportPage({
                   <h1 className="mb-4 text-4xl font-bold uppercase">
                     {report.title}
                   </h1>
-                  <p>{report.description}</p>
+                  <p className="text-justify">{report.description}</p>
                 </div>
-                <Document
-                  file={report.fileUrl}
-                  onLoadSuccess={onDocumentLoadSuccess}
-                >
-                  {Array.from(new Array(numPages), (el, index) => (
-                    <Page
-                      key={`page_${index + 1}`}
-                      pageNumber={index + 1}
-                      renderTextLayer={false}
-                      renderAnnotationLayer={false}
-                      className="w-fit border"
-                      width={
-                        isMobile
-                          ? pageSize
-                            ? pageSize * 0.8
-                            : 300
-                          : pageSize
-                            ? pageSize > 1024
-                              ? pageSize * 0.5
-                              : pageSize > 768
-                                ? pageSize * 0.6
-                                : pageSize * 0.8
-                            : 0
-                      }
-                    />
-                  ))}
-                </Document>
+                <div className="flex justify-center">
+                  <Document
+                    file={report.fileUrl}
+                    onLoadSuccess={onDocumentLoadSuccess}
+                  >
+                    {Array.from(new Array(numPages), (el, index) => (
+                      <Page
+                        key={`page_${index + 1}`}
+                        pageNumber={index + 1}
+                        renderTextLayer={false}
+                        renderAnnotationLayer={false}
+                        className="w-fit border"
+                        width={
+                          isMobile
+                            ? pageSize
+                              ? pageSize * 0.8
+                              : 300
+                            : pageSize
+                              ? pageSize > 1024
+                                ? pageSize * 0.5
+                                : pageSize > 768
+                                  ? pageSize * 0.6
+                                  : pageSize * 0.8
+                              : 0
+                        }
+                      />
+                    ))}
+                  </Document>
+                </div>
               </div>
               <div className="flex flex-col gap-8">
                 {randomReportData && !randomReportLoading && (
@@ -109,31 +105,18 @@ export default function ReportPage({
                     {"Let's Connect"}
                   </h1>
                   <Card className="max-w-[300px]">
-                    <CardHeader>
-                      <div className="flex gap-5">
-                        <Avatar
-                          isBordered
-                          radius="full"
-                          size="md"
-                          src="https://cdn.pixabay.com/photo/2015/03/04/22/35/avatar-659651_640.png"
-                        />
-                        <div className="flex flex-col items-start justify-center gap-1">
-                          <h4 className="text-small font-semibold leading-none text-default-600">
-                            Lorem Ipsum
-                          </h4>
-                          <h5 className="text-small tracking-tight text-default-400">
-                            @loremipsum
-                          </h5>
-                        </div>
-                      </div>
+                    <CardHeader className="items-center justify-center ">
+                      <h4 className="text-lg font-bold">Pankaj Kumar</h4>
                     </CardHeader>
-                    <CardBody className="gap-2 px-3 text-small text-default-400">
-                      <div className="flex place-content-center">
-                        <Linkedin />
-                      </div>
-                      <Button color="primary" className="w-full" size="sm">
+                    <CardBody className="flex-row gap-2 px-3 text-small text-default-400">
+                      <MessageSquare size={30} />
+                      <Link
+                        className="text-black underline dark:text-white"
+                        href="https://wa.me/919911931247"
+                        target="_blank"
+                      >
                         Connect
-                      </Button>
+                      </Link>
                     </CardBody>
                   </Card>
                 </div>

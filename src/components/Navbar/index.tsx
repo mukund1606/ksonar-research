@@ -11,7 +11,6 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  Image,
   Link,
   Navbar,
   NavbarBrand,
@@ -149,33 +148,26 @@ export default function Nav({ session }: { session: Session | null }) {
                 radius="lg"
                 className="p-[6px items-center gap-1 border-none bg-opacity-60"
               >
-                <Image
-                  alt="Profile Pic"
-                  className="aspect-[4/5] max-w-[280px] object-cover"
-                  width={300}
-                  height={375}
-                  src="https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg"
-                />
                 <CardFooter className="rounded-md border-1 border-white/20 py-1 shadow-small before:rounded-xl before:bg-white/10">
                   <div className="flex max-w-64 flex-col gap-2">
                     <div className="pb-2 text-medium">
-                      <p>Hi, My name is XYZ</p>
-                      <p>I am a researcher at KSonar Research</p>
+                      <p>Hi, My name is Pankaj Kmar</p>
+                      <p>I am a director at KSonar Research</p>
                     </div>
                     <div className="flex items-center gap-1">
                       <Mail size={30} />
                       <Link
-                        href="mailto:ksonarresearch@gmail.com"
+                        href="mailto:sales@ksonarreserach.com"
                         className="text-black underline dark:text-white"
                       >
-                        ksonarresearch@gmail.com
+                        sales@ksonarreserach.com
                       </Link>
                     </div>
                     <div className="flex items-center gap-1">
                       <MessageSquare size={30} />
                       <Link
                         className="text-black underline dark:text-white"
-                        href="https://wa.me/91XXXXXXXXXX"
+                        href="https://wa.me/919911931247"
                         target="_blank"
                       >
                         Whatsapp
@@ -184,18 +176,17 @@ export default function Nav({ session }: { session: Session | null }) {
                     <div className="flex items-center gap-1">
                       <Phone size={30} />
                       <Link className="text-black dark:text-white">
-                        +91 XXXXXXXXXX
+                        +91 9911931247
                       </Link>
                     </div>
                     <div className="flex items-center gap-1">
                       <Building2 size={30} />
-                      <Link
-                        href="#"
-                        className="text-black underline dark:text-white"
-                      >
-                        19671 110 Avenue, Surrey,
+                      <Link className="text-black underline dark:text-white">
+                        201, C-102, Sona Trade Center,
                         <br />
-                        British Columbia, V3R2A9
+                        RDC, Raj Nagar, Ghaziabad,
+                        <br />
+                        Uttar Pradesh (201013), India.
                       </Link>
                     </div>
                   </div>
