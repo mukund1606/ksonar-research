@@ -64,7 +64,7 @@ export default function ReportCard({
   return (
     <Card className="z-0 flex max-w-[300px] flex-col justify-between">
       <CardHeader className="flex-col items-start px-4 pb-0 pt-2">
-        <h4 className="text-large font-bold text-primary underline">
+        <h4 className="text-left text-large font-bold text-primary underline">
           {report.title}
         </h4>
         <small className="text-default-500">{report.industry}</small>
