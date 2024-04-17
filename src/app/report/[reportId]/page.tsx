@@ -3,13 +3,26 @@
 import { api } from "@/trpc/react";
 
 import Footer from "@/components/Footer";
-import { Card, CardBody, CardHeader, Spinner } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Spinner,
+  useDisclosure,
+} from "@nextui-org/react";
 import { redirect } from "next/navigation";
 
 import { useEffect, useState } from "react";
 import { Document, Page } from "react-pdf";
 
 import ReportCard from "@/components/ReportCard";
+import RequestReportForm from "@/components/RequestReportForm";
 import { MessageSquare } from "lucide-react";
 import { isMobile } from "mobile-device-detect";
 import Link from "next/link";
@@ -19,6 +32,8 @@ export default function ReportPage({
 }: {
   params: { reportId: string };
 }) {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   const [numPages, setNumPages] = useState<number>();
   const [pageSize, setPageSize] = useState<number>();
 
@@ -51,11 +66,30 @@ export default function ReportPage({
           <div className="mt-4 flex w-full items-center justify-center gap-6 px-3 md:px-8 xl:px-12">
             <div className="flex flex-col items-center gap-6 pt-12 md:flex-row md:items-start">
               <div className="flex flex-col gap-4">
-                <div>
+                <div className="flex flex-col gap-4">
                   <h1 className="mb-4 text-4xl font-bold uppercase">
                     {report.title}
                   </h1>
                   <p className="text-justify">{report.description}</p>
+                  <Button onPress={onOpen} color="primary">
+                    Request Custom Report
+                  </Button>
+                  <Modal
+                    size="5xl"
+                    isOpen={isOpen}
+                    onOpenChange={onOpenChange}
+                    className="max-h-[90vh] overflow-y-auto"
+                  >
+                    <ModalContent>
+                      <ModalHeader className="flex flex-col gap-1">
+                        Request Custom Report
+                      </ModalHeader>
+                      <ModalBody>
+                        <RequestReportForm />
+                      </ModalBody>
+                      <ModalFooter></ModalFooter>
+                    </ModalContent>
+                  </Modal>
                 </div>
                 <div className="flex justify-center">
                   <Document

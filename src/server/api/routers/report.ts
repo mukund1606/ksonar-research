@@ -5,8 +5,9 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
-import { CreateReportFormSchema } from "@/types/forms";
+import { CreateReportFormSchema, RequestReportSchema } from "@/types/forms";
 import { TRPCError } from "@trpc/server";
+import axios from "axios";
 import { UTApi } from "uploadthing/server";
 
 export const reportRoute = createTRPCRouter({
@@ -133,5 +134,31 @@ export const reportRoute = createTRPCRouter({
         .sort(() => Math.random() - 0.5)
         .slice(0, 3);
       return threeRandomReports;
+    }),
+  requestCustomReport: publicProcedure
+    .input(RequestReportSchema)
+    .mutation(async ({ input }) => {
+      try {
+        const scriptURL =
+          "https://script.google.com/macros/s/AKfycbyH5Fl-RGKaCI7jlmPx3G4N4Ftz1oGWfAocfBg1VxfXWFLmeX7df-zgEPsa5W8hbj5d/exec";
+        const form = new FormData();
+        form.append("name", input.name);
+        form.append("email", input.email);
+        form.append("country", input.country);
+        form.append("number", input.number);
+        form.append("company", input.company);
+        form.append("job", input.job);
+        form.append("custom", input.custom);
+        form.append("message", input.message);
+        await axios.post(scriptURL, form);
+        return {
+          message: "Request submitted successfully",
+        };
+      } catch (error) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Error submitting request",
+        });
+      }
     }),
 });

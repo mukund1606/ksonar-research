@@ -10,6 +10,17 @@ export const LoginFormSchema = z.object({
   password: z.string().min(8, { message: "Password is Required." }),
 });
 
+export const RequestReportSchema = z.object({
+  name: z.string().min(1, { message: "Name is Required." }),
+  email: z.string().email({ message: "Email is Required." }),
+  country: z.string().min(1, { message: "Country is Required." }),
+  number: z.string().min(1, { message: "Phone Number is Required." }),
+  company: z.string().min(1, { message: "Company Name is Required." }),
+  job: z.string(),
+  custom: z.string(),
+  message: z.string().min(1, { message: "Message is Required." }),
+});
+
 export const IndustrySchema = z.enum(
   [
     "Industrial and Manufacturing",
