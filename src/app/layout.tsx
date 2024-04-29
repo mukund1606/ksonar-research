@@ -31,9 +31,7 @@ export default async function RootLayout({
         <Providers>
           <TRPCReactProvider>
             <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-            <Nav 
-              session={session}
-            />
+            <Nav session={session} />
             {children}
             <ReactQueryDevtools />
             <Toaster richColors closeButton />

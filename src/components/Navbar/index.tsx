@@ -126,7 +126,7 @@ export default function Nav({ session }: { session: Session | null }) {
                     Dashboard
                   </DropdownItem>
                   <DropdownItem
-                    onClick={async () => {
+                    onPress={async () => {
                       await signOut({ callbackUrl: "/" });
                     }}
                   >
